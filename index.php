@@ -1,27 +1,45 @@
 <?php
 class Post {
-    public int $id;
-    public int $likes = 0;
-    public array $comments = [];
-    private string $author;
+    private int $id;
+    private int $likes = 0;
 
-    public function setAuthor($nome) {
-        if ( strlen($nome) >=3 ) {
-            $this->author = ucfirst($nome);
-        } else {
-            echo "Nome deve ter pelo menos três letras!";
-        }
+    public function setId($identifier) {
+        $this->id = $identifier;
     }
-    public function getAuthor() {
-        return $this->author;
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setLikes($like) {
+        $this->likes = $like;
+    }
+    public function getLikes() {
+        return $this->likes;
     }
 }
-$post1 = new Post();
-$post1->setAuthor('fe');
 
-$post2 = new Post();
-$post2->setAuthor('Fulano');
+//Aqui inicia a herança de classes
+class Photo extends Post {
+    private string $url;
 
-echo "POST 1: ".$post1->likes." likes - ".$post1->getAuthor()."</br>";
-echo "POST 2: ".$post2->likes." likes - ".$post2->getAuthor();
+    public function __construct($id) {
+        $this->setId($id);
+    }
+
+    public function setUrl($u) {
+        $this->url = $u;
+    }
+
+    public function getUrl() {
+        return $this->url;
+    }
+}
+
+$photo = new Photo(20);
+$photo->setLikes(12);
+$photo->setUrl("abc");
+
+echo "Post da foto: ".$photo->getId()."</br>";
+echo "Likes: ".$photo->getLikes()."</br>";
+echo "url: ".$photo->getUrl();
 ?>
